@@ -15,7 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@metaeuristici/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@metaeuristici/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@metaeuristici/problema1": ["libs/problema1/src/index.ts"],
+      "@metaeuristici/problema2": ["libs/problema2/src/index.ts"],
+      "@metaeuristici/problema3": ["libs/problema3/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

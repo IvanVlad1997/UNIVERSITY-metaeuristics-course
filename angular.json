@@ -190,6 +190,84 @@
       },
       "tags": [],
       "implicitDependencies": ["app"]
+    },
+    "problema1": {
+      "projectType": "library",
+      "root": "libs/problema1",
+      "sourceRoot": "libs/problema1/src",
+      "prefix": "metaeuristici",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/problema1"],
+          "options": {
+            "jestConfig": "libs/problema1/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/problema1/src/**/*.ts",
+              "libs/problema1/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "problema2": {
+      "projectType": "library",
+      "root": "libs/problema2",
+      "sourceRoot": "libs/problema2/src",
+      "prefix": "metaeuristici",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/problema2"],
+          "options": {
+            "jestConfig": "libs/problema2/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/problema2/src/**/*.ts",
+              "libs/problema2/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "problema3": {
+      "projectType": "library",
+      "root": "libs/problema3",
+      "sourceRoot": "libs/problema3/src",
+      "prefix": "metaeuristici",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/problema3"],
+          "options": {
+            "jestConfig": "libs/problema3/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/problema3/src/**/*.ts",
+              "libs/problema3/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
     }
   }
 }

@@ -34,7 +34,7 @@ interface UtilajeAG {
 
 
 @Injectable()
-export class AppService {
+export class Problema1Service {
 
   private utilajeAG: UtilajeAG;
 

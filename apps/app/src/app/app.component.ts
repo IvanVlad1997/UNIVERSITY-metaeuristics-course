@@ -9,6 +9,6 @@ import { Message } from '@metaeuristici/api-interfaces';
 })
 export class AppComponent {
   // hello$ = this.http.get<any>('/api/problema1');
-  hello$ = this.http.get<any>('/api/problema2');
-  constructor(private http: HttpClient) {}
+  // hello$ = this.http.get<any>('/api/problema2');
+  // constructor(private http: HttpClient) {}
 }
