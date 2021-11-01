@@ -1,0 +1,64 @@
+<div>Într-un centru de producţie componente electronice se fabrică trei tipuri de
+  componente – c1, c2 şi c3. Se caută o structură optimă a producţiei într-o
+  lună, adică numărul de colete a 100 componente din fiecare tip.
+  Optimalitatea unei soluţii presupune realizarea unui venit maxim cu un
+  cost minim. Se cunosc veniturile obţinute de pe urma producerii unui
+  colete de 100 componente din fiecare tip (vi) şi costurile aferente (ci).
+  Restricţii. Numărul de colete din fiecare tip trebuie să fie cel puţin 5, să nu
+  depăşească un număr maxim, cunoscut, care se poate produce lunar. In
+  plus, nu se pot produce lunar mai mult de 400 de colete.</div>
+
+<div>TODO: De adăugat restricții</div>
+<div *ngIf="hello$ | async as date" style="padding: 0 20px">
+    <!--    <ng-container *ngFor="let generatie of date.generatii; let i = index "-->
+    <!--                  >-->
+    <!--     <div style="padding-bottom: 20px;">-->
+    <!--       {{i}} -  {{generatie | json}}-->
+    <!--     </div>-->
+    <!--    </ng-container>-->
+    <div style="padding-bottom: 20px; font-size: 28px">
+      <h1>Date problema</h1>
+      <p>Probabilitatea de încrucisare {{date.probabilitateaDeIncrucisare}}</p>
+      <p>Probabilitatea de mutatie {{date.probabilitateaDeMutatie}}</p>
+      <p>Dimensiunea initială a populației {{date.dimensiuneaInitialaPopulatie}}</p>
+      <p>Numărul maxim de generații {{date.numarulMaximDeGeneratii}}</p>
+      <p>Dimensiunea maximă populație {{date.dimensiuneaMaximaPopulatie}}</p>
+      <p>Costuri {{date.costuri}}</p>
+      <p>Venit {{date.venit}}</p>
+      <p>Cantitati maxime {{date.cantitateMaxima}}</p>
+      <p>Generatie Actuala {{date.generatieActuala}}</p>
+      <p>Populatie Actuală {{date.populatieActuala}}</p>
+      <br/>
+    </div>
+    <ng-container *ngFor="let generatie of date.generatii; let i = index">
+      <ng-container *ngIf="generatie.fitnessMaxim">
+        <div>Generatia {{i}} cu fitness maxim {{generatie.fitnessMaxim}}</div>
+      </ng-container>
+    </ng-container>
+    <div style="margin-top: 50px">
+      <table>
+        <tr>
+          <th>Individ</th>
+          <th *ngFor="let cantitate of date.cantitateMaxima; let j = index">g {{j}}</th>
+          <th>Fitness</th>
+        </tr>
+      </table>
+
+      <ng-container *ngFor="let generatie of date.generatii; let i = index">
+        <ng-container *ngIf="generatie.fitnessMaxim">
+          <div>Generatia {{i}} </div>
+
+          <table>
+            <tr *ngFor="let individ of generatie.indivizi let j = index">
+              <td>{{j}}:</td>
+              <td *ngFor="let cantitate of individ.cantitatiProduse">{{cantitate}}</td>
+              <td>{{individ.fitness}}</td>
+            </tr>
+          </table>
+        </ng-container>
+
+
+      </ng-container>
+    </div>
+  </div>
+

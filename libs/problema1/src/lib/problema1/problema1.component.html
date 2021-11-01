@@ -1,0 +1,73 @@
+<div>Pentru o instalaţie de producţie constând din 8 utilaje se pune problema
+  care dintre acestea este preferabil de înlocuit pentru optimizarea
+  activităţii, cunoscându-se pentru fiecare dintre ele costul aferent înlocuirii
+  (c) şi sporul de venit adus prin înlocuire (s).
+</div>
+<div *ngIf="hello$ | async as date" style="padding: 0 20px">
+  <!--    <ng-container *ngFor="let generatie of date.generatii; let i = index "-->
+  <!--                  >-->
+  <!--     <div style="padding-bottom: 20px;">-->
+  <!--       {{i}} -  {{generatie | json}}-->
+  <!--     </div>-->
+  <!--    </ng-container>-->
+  <div style="padding-bottom: 20px; font-size: 28px">
+    <h1>Date problema</h1>
+    <p>Probabilitatea de încrucisare {{date.probabilitateaDeIncrucisare}}</p>
+    <p>Probabilitatea de mutatie {{date.probabilitateaDeMutatie}}</p>
+    <p>Dimensiunea initială a populației {{date.dimensiuneaInitialaPopulatie}}</p>
+    <p>Numărul maxim de generații {{date.numarulMaximDeGeneratii}}</p>
+    <p>Dimensiunea maximă populație {{date.dimensiuneaMaximaPopulatie}}</p>
+    <p>Costuri {{date.costuri}}</p>
+    <p>Profit {{date.profit}}</p>
+    <p>Generatie Actuala {{date.generatieActuala}}</p>
+    <p>Populatie Actuală {{date.populatieActuala}}</p>
+    <br/>
+  </div>
+  <ng-container *ngFor="let generatie of date.generatii; let i = index">
+    <ng-container *ngIf="generatie.fitnessMaxim">
+      <div>Generatia {{i}} cu fitness maxim {{generatie.fitnessMaxim}}</div>
+    </ng-container>
+
+
+  </ng-container>
+  <div style="margin-top: 50px">
+    <table>
+      <tr>
+        <th>Individ</th>
+        <th>g0</th>
+        <th>g1</th>
+        <th>g2</th>
+        <th>g3</th>
+        <th>g4</th>
+        <th>g5</th>
+        <th>g6</th>
+        <th>g7</th>
+        <th>Fitness</th>
+      </tr>
+    </table>
+
+    <ng-container *ngFor="let generatie of date.generatii; let i = index">
+      <ng-container *ngIf="generatie.fitnessMaxim">
+        <div>Generatia {{i}} </div>
+
+        <table>
+          <tr *ngFor="let individ of generatie.indivizi; let j = index">
+            <td>{{j}}:</td>
+            <td>{{individ.g0}}</td>
+            <td>{{individ.g1}}</td>
+            <td>{{individ.g2}}</td>
+            <td>{{individ.g3}}</td>
+            <td>{{individ.g4}}</td>
+            <td>{{individ.g5}}</td>
+            <td>{{individ.g6}}</td>
+            <td>{{individ.g7}}</td>
+            <td>{{individ.fitness}}</td>
+          </tr>
+        </table>
+      </ng-container>
+
+
+    </ng-container>
+  </div>
+</div>
+

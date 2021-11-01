@@ -1,0 +1,34 @@
+<div>În lucru</div>
+<div>Planificarea invitatilor. La un eveniment se cauta o repartizare a invitatilor
+  la mese astfel incat starea lor globala de buna dispozitie (determinata de
+  alaturarea cu persoane pe care le agreaza) sa fie maxima. Pentru fiecare
+  invitat se cunoaste gradul de buna dispozitie aparuta prin alaturarea la
+  aceeasi masa cu oricare alt invitat din lista de invitati. Buna dispozitie a
+  unui invitat se masoara prin cel mai redus grad de buna dispozitie,
+  considerand toti ocupantii mesei la care acesta este asezat. Buna
+  dispozitie asociata unei mese se calculeaza ca fiind valoarea minima a
+  bunei dispozitii considerand toti ocupantii sai. Mesele pot diferi prin
+  numarul de locuri, dar exista numar limitat de locuri la mese.
+</div>
+
+<div *ngIf="hello$ | async as date" style="padding: 0 20px">
+  <div>Număr mese: {{date.numarDeMese}}</div>
+  <div>Locuri la mese: {{date.numarMaximDeLocuriMese}}</div>
+  <div class="m-1">
+    <span class="col " *ngFor="let buneDispozitii of date.bunaDispozitie; let j=index">{{j}}</span>
+  </div>
+  <div class="row" *ngFor="let buneDispozitii of date.bunaDispozitie; let i = index">
+    <span class="col">{{i}}</span>
+
+    <span class="col" *ngFor="let bd of buneDispozitii">{{bd}} </span>
+  </div>
+
+  <div>------------------------------------</div>
+  <div style="margin: 50px 0" *ngFor="let individ of date.populatie">
+    <!--    {{individ | json}}-->
+    <span *ngFor="let invitat of individ.asezariInvitatiLaMese"> {{invitat |json}}</span>
+
+  </div>
+
+  {{date | json}}
+</div>
