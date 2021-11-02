@@ -148,6 +148,7 @@ export class AppService {
     generatie.indivizi = [...problema.populatie];
     problema.generatii.push(generatie);
   }
+
   adaugarePopulatieLaGeneratie(problema: UtilajeAG): void {
     problema.generatii[problema.generatieActuala].indivizi = [...problema.populatie];
   }
@@ -222,8 +223,8 @@ export class AppService {
   mutatie() {
     let mutanti: number = Math.floor(this.utilajeAG.populatieActuala * this.utilajeAG.probabilitateaDeMutatie);
     for (let i = 0; i < mutanti; i++) {
-      let individulMutant: number = this.getRandomInt(this.utilajeAG.populatieActuala);
-      let genaMutanta: number = this.getRandomInt(7);
+      let individulMutant: number = this.getRandomInt(this.utilajeAG.populatieActuala + 1);
+      let genaMutanta: number = this.getRandomInt(7 + 1);
       if (this.utilajeAG.populatie[individulMutant]) {
         if (this.getGena(this.utilajeAG.populatie[individulMutant], genaMutanta) === 0) {
           this.setGena(this.utilajeAG.populatie[individulMutant], genaMutanta, 1);
@@ -273,7 +274,7 @@ export class AppService {
       this.mutatie();
       this.adaugarePopulatieLaGeneratie(this.utilajeAG);
       this.evaluareFitnessMaximGeneratie(this.utilajeAG)
-    }  while (!this.final(this.utilajeAG.numarulMaximDeGeneratii, this.utilajeAG.dimensiuneaMaximaPopulatie))
+    } while (!this.final(this.utilajeAG.numarulMaximDeGeneratii, this.utilajeAG.dimensiuneaMaximaPopulatie))
     return this.utilajeAG;
   }
 

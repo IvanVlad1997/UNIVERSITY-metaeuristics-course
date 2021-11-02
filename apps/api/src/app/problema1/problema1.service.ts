@@ -222,8 +222,8 @@ export class Problema1Service {
   mutatie() {
     let mutanti: number = Math.floor(this.utilajeAG.populatieActuala * this.utilajeAG.probabilitateaDeMutatie);
     for (let i = 0; i < mutanti; i++) {
-      let individulMutant: number = this.getRandomInt(this.utilajeAG.populatieActuala);
-      let genaMutanta: number = this.getRandomInt(7);
+      let individulMutant: number = this.getRandomInt(this.utilajeAG.populatieActuala + 1);
+      let genaMutanta: number = this.getRandomInt(7 + 1);
       if (this.utilajeAG.populatie[individulMutant]) {
         if (this.getGena(this.utilajeAG.populatie[individulMutant], genaMutanta) === 0) {
           this.setGena(this.utilajeAG.populatie[individulMutant], genaMutanta, 1);

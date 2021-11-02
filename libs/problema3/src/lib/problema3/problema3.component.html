@@ -9,6 +9,8 @@
   dispozitie asociata unei mese se calculeaza ca fiind valoarea minima a
   bunei dispozitii considerand toti ocupantii sai. Mesele pot diferi prin
   numarul de locuri, dar exista numar limitat de locuri la mese.
+
+  Adăugare: Un invitat nu poate fi singur la o masă
 </div>
 
 <div *ngIf="hello$ | async as date" style="padding: 0 20px">
@@ -24,7 +26,17 @@
   </div>
 
   <div>------------------------------------</div>
-  <div style="margin: 50px 0" *ngFor="let generatie of date.generatii">
+
+  <div style="margin: 50px 0" *ngFor="let generatie of date.generatii; let i = index">
+    <ng-container *ngIf="generatie.fitnessMaximGeneratie">
+      <div>Generatia {{i}} cu fitness maxim {{generatie.fitnessMaximGeneratie}}</div>
+    </ng-container>
+  </div>
+
+  <div>------------------------------------</div>
+  <div style="margin: 50px 0" *ngFor="let generatie of date.generatii; let i = index">
+
+
     Fitness maxim generatie {{generatie.fitnessMaximGeneratie}}
     <div style="margin: 50px 0" *ngFor="let individ of generatie.indivizi">
       <!--    {{individ | json}}-->
@@ -50,5 +62,5 @@
 
   </div>
 
-  {{date | json}}
+<!--  {{date | json}}-->
 </div>
