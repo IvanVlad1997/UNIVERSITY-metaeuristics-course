@@ -24,9 +24,29 @@
   </div>
 
   <div>------------------------------------</div>
+  <div style="margin: 50px 0" *ngFor="let generatie of date.generatii">
+    Fitness maxim generatie {{generatie.fitnessMaximGeneratie}}
+    <div style="margin: 50px 0" *ngFor="let individ of generatie.indivizi">
+      <!--    {{individ | json}}-->
+      <span *ngFor="let invitat of individ.asezariInvitatiLaMese"> {{invitat |json}}</span>
+      <div>Fitness individ: {{individ.fitnsesIndivid}}</div>
+
+    </div>
+
+    <div style="margin: 50px 0" *ngFor="let parinte of generatie.parinti">
+      <div>Părinți: {{parinte | json}}</div>
+
+    </div>
+  </div>
+
+
+
+  <div>------------------------------------</div>
+
   <div style="margin: 50px 0" *ngFor="let individ of date.populatie">
     <!--    {{individ | json}}-->
     <span *ngFor="let invitat of individ.asezariInvitatiLaMese"> {{invitat |json}}</span>
+    <div>Fitness individ: {{individ.fitnsesIndivid}}</div>
 
   </div>
 

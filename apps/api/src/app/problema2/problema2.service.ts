@@ -100,9 +100,6 @@ export class Problema2Service {
 
   trecereLaGeneratiaUrmatoare(problema: ProblemaAG) {
     problema.generatieActuala++;
-    // this.problemaAg.generatii[problema.generatieActuala] = {
-    //   fitnessMaxim: 0, indivizi: [], parinti: []
-    // }
   }
 
   fitness(individ: Cromozon) {
