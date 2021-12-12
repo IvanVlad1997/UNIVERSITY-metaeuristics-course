@@ -1,16 +1,12 @@
 import {Injectable} from "@nestjs/common";
+import {Cromozon} from "./common/cromozon";
+import {Masa} from "./common/masa";
 
 //TODO: De introdus factor aleator la pozitia încrucișării
+//TODO: De făcut medie a locurilor la mese + comparație cu nr. de invitați
 
-interface Cromozon {
-  asezariInvitatiLaMese: Masa[];
-  fitnsesIndivid: number
-}
 
-interface Masa {
-  asezariInvitati: number[];
-  fitnessMasa: number;
-}
+
 
 interface SelectiaRuleta {
   individ: Cromozon;
@@ -47,9 +43,9 @@ export class Problema3Service {
   private problema: ListaInvitatilorAG;
 
   citireDateIntrare() {
-    this.problema.numarDeInvitati = 10;
-    this.problema.numarDeMese = 3;
-    this.problema.numarMaximDeLocuriMese = [3, 4, 7]
+    this.problema.numarDeInvitati = 15;
+    this.problema.numarDeMese = 4;
+    this.problema.numarMaximDeLocuriMese = [4, 4, 4, 4]
   }
 
   citireParametri() {
@@ -193,6 +189,7 @@ export class Problema3Service {
     if (numarParinti % 2 === 1) {
       numarParinti--;
     }
+
     let copieNumarParinti = numarParinti;
     let selectieRuleta: SelectiaRuleta[] = [];
     while (copieNumarParinti > 0) {
@@ -393,14 +390,14 @@ export class Problema3Service {
   resetareProblema(): ListaInvitatilorAG {
     let date: ListaInvitatilorAG = {
       bunaDispozitie: [],
-      dimensiuneaInitialaPopulatie: 5,
-      dimensiuneaMaximaPopulatie: 10,
+      dimensiuneaInitialaPopulatie: 10,
+      dimensiuneaMaximaPopulatie: 5000,
       generatieActuala: 0,
       generatii: [],
       numarDeInvitati: 9,
       numarDeMese: 0,
       numarMaximDeLocuriMese: [],
-      numarulMaximDeGeneratii: 10,
+      numarulMaximDeGeneratii: 12,
       populatie: [],
       populatieActuala: 0,
       probabilitateaDeIncrucisare: 0.7,
@@ -410,7 +407,6 @@ export class Problema3Service {
   }
 
   getData() {
-
     do {
       this.problema = this.resetareProblema();
       this.citireDateIntrare();

@@ -4,6 +4,7 @@ import {Problema1Component} from "../../../../../libs/problema1/src/lib/problema
 import {Problema2Component} from "../../../../../libs/problema2/src/lib/problema2/problema2.component";
 import {Problema3Component} from "../../../../../libs/problema3/src/lib/problema3/problema3.component";
 import {StartPageComponent} from "../start-page/start-page.component";
+import {Problema3HillClimbingComponent} from "../../../../../libs/problema3/src/lib/problema3-hill-climbing/problema3-hill-climbing.component";
 
 
 export const routes: Routes = [
@@ -26,6 +27,10 @@ export const routes: Routes = [
       {
         path: 'problema3',
         component: Problema3Component
+      },
+      {
+        path: 'problema3-hill-climbing',
+        component: Problema3HillClimbingComponent
       }
     ]
   }
