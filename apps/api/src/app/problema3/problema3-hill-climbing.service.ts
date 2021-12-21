@@ -1,5 +1,5 @@
-import {Injectable} from "@nestjs/common";
-import {Masa} from "./common/masa";
+import { Injectable } from "@nestjs/common";
+import { Masa } from "./common/masa";
 
 interface Cromozon {
   listaInvitati: number[];
@@ -14,10 +14,30 @@ export class Problema3HillClimbingService {
   solutieCandidat: Cromozon;
   numarLocuriMese: number[];
   numarDeInvitati: number;
+  bunaDispozitie: number[][] = [];
+  numarAlterari: number;
+
 
   setareDateIntrare() {
-    this.numarLocuriMese = [3, 4, 5, 4, 3, 5];
-    this.numarDeInvitati = 20;
+    this.numarLocuriMese = [2, 3, 2, 4, 4];
+    this.numarDeInvitati = 15;
+  }
+
+  citireParametri() {
+    this.numarAlterari = 7;
+    //Initializare matrice de buna dispozitie
+    if (this.bunaDispozitie.length < 1) {
+      for (let i = 0; i < this.numarDeInvitati; i++) {
+        this.bunaDispozitie.push([0]);
+        for (let j = 0; j < this.numarDeInvitati; j++) {
+          if (i == j) {
+            this.bunaDispozitie[i][j] = 100;
+            continue;
+          }
+          this.bunaDispozitie[i][j] = this.getRandomInt(101)
+        }
+      }
+    }
   }
 
   initializareIndivid(): Cromozon {
@@ -29,29 +49,33 @@ export class Problema3HillClimbingService {
     }
     console.log('lista invitati', individ.listaInvitati)
     this.ordonareArrayAleator(individ.listaInvitati);
+    console.log('lista invitati ordonata aleator', individ.listaInvitati);
+    let x = 0;
+    do {
+      this.initializareLocuriMese(individ)
+      console.log('reinitializare locuri mese')
+      individ.fitnsesIndivid = this.fitnessIndivid(individ)
+      x++
+    } while (individ.fitnsesIndivid < 1 && x < 10);
+    return individ
+  }
 
-    console.log('lista invitati ordonata aleator', individ.listaInvitati)
-    for (let masa = 1; masa < this.numarLocuriMese.length-1; masa++) {
-      individ.listaInceputMese.push(this.randomIntFromInterval(2, this.numarDeInvitati-2))
+  initializareLocuriMese(individ: Cromozon): Cromozon {
+    individ.listaInceputMese = []
+    for (let masa = 1; masa < this.numarLocuriMese.length; masa++) {
+      individ.listaInceputMese.push(this.randomIntFromInterval(2, this.numarDeInvitati - 3))
     }
     console.log('lista Inceput mese', individ.listaInceputMese)
     this.ordonareArrayAleator(individ.listaInceputMese)
     console.log('lista Inceput mese aleator', individ.listaInceputMese)
-
     individ.listaInceputMese = this.sortareOrdineCrescatoareArray(individ.listaInceputMese)
-    console.log('lista inceput mese ordonata crescator', individ.listaInceputMese)
     // individ.listaInceputMese.push(this.numarLocuriMese.length - 1);
-
-    return individ
+    individ.listaInceputMese.unshift(0);
+    individ.listaInceputMese.push(individ.listaInvitati.length)
+    console.log('lista inceput mese ordonata crescator', individ.listaInceputMese)
+    return individ;
   }
 
-  generareMasa() {
-
-  }
-
-  generareLocuri() {
-
-  }
 
   ordonareArrayAleator(array: number[]) {
     let indexCurent = array.length, randomIndex;
@@ -73,43 +97,133 @@ export class Problema3HillClimbingService {
 
 
 
-  schimbareMasa(listaInvitati: number[]): number[] {
-    console.log("listaInvitati", listaInvitati)
+  schimbareLoc(listaInvitati: number[]): number[] {
+    let listaNouaInvitati: number[] = [...listaInvitati]
     let locInvitat1: number = this.getRandomInt(this.numarDeInvitati)
-    console.log("locInvitat1", locInvitat1)
-
     let locInvitat2: number;
     do {
-      locInvitat2 =  this.getRandomInt(this.numarDeInvitati);
+      locInvitat2 = this.getRandomInt(this.numarDeInvitati);
     } while (locInvitat1 === locInvitat2)
-    console.log("locInvitat2", locInvitat2)
-
     let aux: number;
-    aux = listaInvitati[locInvitat1];
-    listaInvitati[locInvitat1] = listaInvitati[locInvitat2]
-    listaInvitati[locInvitat2] = aux;
-    console.log("Au fost schimbați între ei invitații de pe locurile", locInvitat1, listaInvitati[locInvitat1], "și", locInvitat2, listaInvitati[locInvitat2])
-    return listaInvitati;
+    // console.log(listaInvitati)
+
+    aux = listaNouaInvitati[locInvitat1];
+    listaNouaInvitati[locInvitat1] = listaNouaInvitati[locInvitat2]
+    listaNouaInvitati[locInvitat2] = aux;
+    console.log('au fost schimbați', locInvitat1, listaNouaInvitati[locInvitat1], locInvitat2, listaNouaInvitati[locInvitat2])
+    // console.log(listaInvitati)
+    return listaNouaInvitati;
   }
 
-  schimbareLoc() {
+  fitnessIndivid(individ: Cromozon): number {
+    let fitnessIndivid: number = 100;
+    for (let masa = 0; masa < individ.listaInceputMese.length - 1; masa++) {
+      if (individ.listaInceputMese[masa + 1] - individ.listaInceputMese[masa] === 0) {
+        continue;
+      }
+      if (individ.listaInceputMese[masa + 1] - individ.listaInceputMese[masa] === 1) {
+        // console.log('individ.listaInceputMese[masa+1]', individ.listaInceputMese[masa + 1])
+        // console.log('individ.listaInceputMese[masa]', individ.listaInceputMese[masa])
+        fitnessIndivid = 0.1
+        continue;
+      }
 
+      //TODO: De introdus logica pentru 1 invitat la masa
+      let fitness: number = 100
+      let invitat1: number = individ.listaInvitati[individ.listaInceputMese[masa]];
+      let invitat2: number = individ.listaInvitati[individ.listaInceputMese[masa + 1] - 1];
+      fitness = this.comparareFitness(individ, invitat1, invitat2, fitness);
+      for (let j = individ.listaInceputMese[masa]; j < individ.listaInceputMese[masa + 1] - 1; j++) {
+        fitness = this.comparareFitness(individ, individ.listaInvitati[j], individ.listaInvitati[j + 1], fitness);
+        if (fitness < fitnessIndivid) {
+          fitnessIndivid = fitness;
+        }
+      }
+      // console.log('...................')
+    }
+    return fitnessIndivid;
+  }
+
+  comparareFitness(individ: Cromozon, invitat1: number, invitat2: number, fitnessActual: number): number {
+    let bunaDispozitie1 = this.bunaDispozitie[invitat1][invitat2];
+    let bunaDispozitie2 = this.bunaDispozitie[invitat2][invitat1];
+    // console.log('invitat1', invitat1)
+    // console.log('bunaDispozitie1', bunaDispozitie1)
+    // console.log('invitat2', invitat2)
+    // console.log('bunaDispozitie2', bunaDispozitie2)
+
+
+    if (bunaDispozitie1 < fitnessActual) {
+      fitnessActual = bunaDispozitie1;
+    }
+    if (bunaDispozitie2 < fitnessActual) {
+      fitnessActual = bunaDispozitie2;
+    }
+    return fitnessActual;
   }
 
   getData() {
     this.setareDateIntrare();
-    this.initializareIndivid()
-    let listaPentruMutatie = [
-      0, 17, 11,  5, 13,  6, 2,
-      4,  7, 12, 15, 19,  8, 9,
-      1, 10, 16,  3, 14, 18
-    ]
+    this.citireParametri()
+    let bunaDispozitie = this.bunaDispozitie;
+    let individBest: Cromozon = {
+      listaInvitati: [],
+      listaInceputMese: [],
+      fitnsesIndivid: 0
+    }
+    console.log('Se alege o soluție candidat inițială')
+    let repetariTotale = 5;
+    do {
+      let individInitial = this.initializareIndivid();
+      // console.log(individInitial.listaInvitati)
+      // console.log('buna dispozitie', this.bunaDispozitie)
+      let x = 5; // Numărul de repetări
+      do {
 
-    let listaMutanta = this.schimbareMasa(listaPentruMutatie);
+        let r = this.schimbareLoc(individInitial.listaInvitati);
+        let individTest: Cromozon = {
+          listaInvitati: r,
+          listaInceputMese: individInitial.listaInceputMese,
+          fitnsesIndivid: 0
+        }
+        individTest.fitnsesIndivid = this.fitnessIndivid(individTest);
+        console.log('individTest', individTest)
+        for (let i = 0; i < this.numarAlterari; i++) {
+          let w = this.schimbareLoc(individInitial.listaInvitati);
+          let fitness = this.fitnessIndivid({
+            listaInvitati: w,
+            listaInceputMese: individInitial.listaInceputMese,
+            fitnsesIndivid: 0
+          }
+          )
+          if (fitness > individTest.fitnsesIndivid) {
+            individTest.listaInvitati = w;
+            individTest.fitnsesIndivid = fitness;
+          }
+
+          console.log('~!@#!@#@!@!@*(!$&#*%&$*(&%*#$(%&**(#$%&#$*(%&#$(*%&#$')
+          console.log('fitness', individTest)
+        }
+        if (individTest.fitnsesIndivid > individInitial.fitnsesIndivid) {
+          individInitial.listaInvitati = individTest.listaInvitati;
+          individInitial.fitnsesIndivid = individTest.fitnsesIndivid;
+        }
+        x--;
+      } while (x > 0)
+      if (individInitial.fitnsesIndivid > individBest.fitnsesIndivid) {
+        individBest.fitnsesIndivid = individInitial.fitnsesIndivid
+        individBest.listaInceputMese = individInitial.listaInceputMese
+        individBest.listaInvitati = individInitial.listaInvitati
+      }
+      repetariTotale--;
+    } while (repetariTotale > 0)
+
+    // console.log(this.schimbareLoc(individInitial.listaInvitati))
+    // console.log(individInitial.listaInvitati)
 
     return {
-      listaPentruMutatie,
-      listaMutanta
+      individBest,
+      bunaDispozitie,
     }
   }
 
@@ -122,6 +236,6 @@ export class Problema3HillClimbingService {
   }
 
   sortareOrdineCrescatoareArray(lista: number[]): number[] {
-    return lista.sort(function(a, b){return a-b});
+    return lista.sort(function (a, b) { return a - b });
   }
 }

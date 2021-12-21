@@ -1,3 +1,14 @@
 <div *ngIf="hello$ | async as date" style="padding: 0 20px">
-  {{date | json}}
+  {{date.individBest | json}}
+
+  <!-- Matrice bună dispoziție -->
+<br/>
+  <span> -  </span>
+  <span *ngFor="let bd of date.bunaDispozitie; let i = index">
+    {{i}}
+  </span>
+  <div *ngFor="let bd of date.bunaDispozitie; let i = index">
+    <span>{{i}}</span>
+    <span *ngFor="let x of bd">{{x}}</span>
+  </div>
 </div>
