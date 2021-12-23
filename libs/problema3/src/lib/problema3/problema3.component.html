@@ -30,15 +30,15 @@
   <div style="margin: 50px 0" *ngFor="let generatie of date.generatii; let i = index">
     <ng-container *ngIf="generatie.fitnessMaximGeneratie">
       <div>Generatia {{i}} cu fitness maxim {{generatie.fitnessMaximGeneratie}}</div>
-    <!-- <ng-container *ngFor="let individ of generatie.indivizi">
+    <ng-container *ngFor="let individ of generatie.indivizi">
       <div *ngIf="individ.fitnsesIndivid === generatie.fitnessMaximGeneratie" style="margin: 50px 0" >
         <span *ngFor="let invitat of individ.asezariInvitatiLaMese"> {{invitat |json}}</span>
         <div>Fitness individ: {{individ.fitnsesIndivid}}</div>  
       </div>
-    </ng-container>   -->
+    </ng-container>  
     </ng-container>
   </div>
-
+<!-- 
   <div>------------------------------------</div>
   <div style="margin: 50px 0" *ngFor="let generatie of date.generatii; let i = index">
 
@@ -64,7 +64,7 @@
     <span *ngFor="let invitat of individ.asezariInvitatiLaMese"> {{invitat |json}}</span>
     <div>Fitness individ: {{individ.fitnsesIndivid}}</div>
 
-  </div>
+  </div> -->
 
 <!--  {{date | json}}-->
 </div>

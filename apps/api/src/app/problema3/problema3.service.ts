@@ -44,12 +44,12 @@ export class Problema3Service {
   private problema: ListaInvitatilorAG;
 
   citireDateIntrare() {
-    // this.problema.numarDeInvitati = NUMARINVITATI;
-    // this.problema.numarDeMese = NUMARMESE;
-    // this.problema.numarMaximDeLocuriMese =  INCPUTMESE
-    this.problema.numarDeInvitati = 10
-    this.problema.numarDeMese = 4;
-    this.problema.numarMaximDeLocuriMese = [2, 3, 3, 2]
+    this.problema.numarDeInvitati = NUMARINVITATI;
+    this.problema.numarDeMese = NUMARMESE;
+    this.problema.numarMaximDeLocuriMese =  INCPUTMESE
+    // this.problema.numarDeInvitati = 10
+    // this.problema.numarDeMese = 4;
+    // this.problema.numarMaximDeLocuriMese = [2, 3, 3, 2]
   }
 
   citireParametri() {
@@ -130,22 +130,22 @@ export class Problema3Service {
       return 100;
     }
     for (let invitat = 0; invitat < invitati.length; invitat++) {
-      if (invitat === 0) {
-        if (fitness > bunaDispozitie[invitati[invitat]][invitati[invitat + 1]]) {
-          fitness = bunaDispozitie[invitati[invitat]][invitati[invitat + 1]];
-        }
+      // if (invitat === 0) {
+      //   if (fitness > bunaDispozitie[invitati[invitat]][invitati[invitat + 1]]) {
+      //     fitness = bunaDispozitie[invitati[invitat]][invitati[invitat + 1]];
+      //   }
 
-        if (fitness > bunaDispozitie[invitati[invitat]][invitat[invitati.length - 1]]) {
-          fitness = bunaDispozitie[invitati[invitat]][invitat[invitati.length - 1]];
-        }
-        continue
-      }
+      //   if (fitness > bunaDispozitie[invitati[invitat]][invitat[invitati.length - 1]]) {
+      //     fitness = bunaDispozitie[invitati[invitat]][invitat[invitati.length - 1]];
+      //   }
+      //   continue
+      // }
       if (invitat === invitati.length - 1) {
         if (fitness > bunaDispozitie[invitati[invitat]][invitati[0]]) {
           fitness = bunaDispozitie[invitati[invitat]][invitati[0]];
         }
-        if (fitness > bunaDispozitie[invitati[invitat]][invitati[invitat - 1]]) {
-          fitness = bunaDispozitie[invitati[invitat]][invitati[invitat - 1]];
+        if (fitness > bunaDispozitie[invitati[0]][invitati[invitat]]) {
+          fitness = bunaDispozitie[invitati[0]][invitati[invitat]];
         }
         continue
       }
@@ -153,8 +153,8 @@ export class Problema3Service {
       if (fitness > bunaDispozitie[invitati[invitat]][invitati[invitat + 1]]) {
         fitness = bunaDispozitie[invitati[invitat]][invitati[invitat + 1]];
       }
-      if (fitness > bunaDispozitie[invitati[invitat]][invitati[invitat - 1]]) {
-        fitness = bunaDispozitie[invitati[invitat]][invitati[invitat - 1]];
+      if (fitness > bunaDispozitie[invitati[invitat +1]][invitati[invitat]]) {
+        fitness = bunaDispozitie[invitati[invitat + 1]][invitati[invitat]];
       }
 
     }
@@ -417,7 +417,7 @@ export class Problema3Service {
     let date: ListaInvitatilorAG = {
       bunaDispozitie: [],
       dimensiuneaInitialaPopulatie: 10,
-      dimensiuneaMaximaPopulatie: 100,
+      dimensiuneaMaximaPopulatie: 1000,
       generatieActuala: 0,
       generatii: [],
       numarDeInvitati: 0,
