@@ -10,6 +10,8 @@ import {Problema3Controller} from "./problema3/problema3.controller";
 import {Problema3Service} from "./problema3/problema3.service";
 import {Problema3HillClimbingController} from "./problema3/problema3-hill-climbing.controller";
 import {Problema3HillClimbingService} from "./problema3/problema3-hill-climbing.service";
+import { Problema3IronAnnealingController } from './problema3/problema3-iron-annealing.controller';
+import { Problema3IronAnnealingService } from './problema3/problema3-iron-annealing.service';
 
 @Module({
   imports: [],
@@ -17,12 +19,14 @@ import {Problema3HillClimbingService} from "./problema3/problema3-hill-climbing.
     Problema2Controller,
     Problema1Controller,
     Problema3Controller,
-    Problema3HillClimbingController],
+    Problema3HillClimbingController,
+    Problema3IronAnnealingController],
   providers: [AppService,
     Problema2Service,
     Problema1Service,
     Problema3Service,
-    Problema3HillClimbingService],
+    Problema3HillClimbingService,
+    Problema3IronAnnealingService],
 })
 export class AppModule {
 }

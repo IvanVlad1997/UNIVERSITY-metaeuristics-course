@@ -1,10 +1,11 @@
 import {Injectable} from "@nestjs/common";
 import {Cromozon} from "./common/cromozon";
 import {Masa} from "./common/masa";
+import * as fs from 'fs';
+import { BUNADISPOZITIE, INCPUTMESE, NUMARINVITATI, NUMARMESE } from "./common/buna-dispozitie";
 
 //TODO: De introdus factor aleator la pozitia încrucișării
 //TODO: De făcut medie a locurilor la mese + comparație cu nr. de invitați
-
 
 
 
@@ -43,24 +44,26 @@ export class Problema3Service {
   private problema: ListaInvitatilorAG;
 
   citireDateIntrare() {
-    this.problema.numarDeInvitati = 15;
-    this.problema.numarDeMese = 4;
-    this.problema.numarMaximDeLocuriMese = [4, 4, 4, 4]
+    this.problema.numarDeInvitati = NUMARINVITATI;
+    this.problema.numarDeMese = NUMARMESE;
+    this.problema.numarMaximDeLocuriMese =  INCPUTMESE
   }
 
   citireParametri() {
     //Initializare matrice de buna dispozitie
 
-    for (let i = 0; i < this.problema.numarDeInvitati; i++) {
-      this.problema.bunaDispozitie.push([0]);
-      for (let j = 0; j < this.problema.numarDeInvitati; j++) {
-        if (i == j) {
-          this.problema.bunaDispozitie[i][j] = 100;
-          continue;
-        }
-        this.problema.bunaDispozitie[i][j] = this.getRandomInt(101)
-      }
-    }
+    // for (let i = 0; i < this.problema.numarDeInvitati; i++) {
+    //   this.problema.bunaDispozitie.push([0]);
+    //   for (let j = 0; j < this.problema.numarDeInvitati; j++) {
+    //     if (i == j) {
+    //       this.problema.bunaDispozitie[i][j] = 100;
+    //       continue;
+    //     }
+    //     this.problema.bunaDispozitie[i][j] = this.getRandomInt(101)
+    //   }
+    // }
+
+    this.problema.bunaDispozitie = BUNADISPOZITIE
   }
 
   adaugareIndivid() {
@@ -390,18 +393,18 @@ export class Problema3Service {
   resetareProblema(): ListaInvitatilorAG {
     let date: ListaInvitatilorAG = {
       bunaDispozitie: [],
-      dimensiuneaInitialaPopulatie: 10,
-      dimensiuneaMaximaPopulatie: 5000,
+      dimensiuneaInitialaPopulatie: 80,
+      dimensiuneaMaximaPopulatie: 15000,
       generatieActuala: 0,
       generatii: [],
       numarDeInvitati: 9,
       numarDeMese: 0,
       numarMaximDeLocuriMese: [],
-      numarulMaximDeGeneratii: 12,
+      numarulMaximDeGeneratii: 30,
       populatie: [],
       populatieActuala: 0,
-      probabilitateaDeIncrucisare: 0.7,
-      probabilitateaDeMutatie: 0.1
+      probabilitateaDeIncrucisare: 0.8,
+      probabilitateaDeMutatie: 0.2
     }
     return date;
   }
@@ -423,16 +426,24 @@ export class Problema3Service {
       console.log('trecere la urmatoarea generatie', this.problema.generatieActuala);
       this.adaugareGeneratie(this.problema);
       this.selectieRuleta(this.problema)
-      console.log('a fost facuta selectia')
+      // console.log('a fost facuta selectia')
       this.incrucisare()
-      console.log('a fost facuta incrucisarea')
+      // console.log('a fost facuta incrucisarea')
       this.mutatie();
-      console.log('a fost facuta mutatia')
+      // console.log('a fost facuta mutatia')
       this.adaugarePopulatieLaGeneratie(this.problema);
       this.evaluareFitnessMaximGeneratie(this.problema)
       console.log('evaluare fitnessMaxim Generație', this.problema.generatii[this.problema.generatieActuala].fitnessMaximGeneratie)
     } while (!this.final(this.problema.numarulMaximDeGeneratii, this.problema.dimensiuneaMaximaPopulatie))
 
+
+    let text = 'fitness algoritm genetic ' + this.problema.generatii[this.problema.generatieActuala].fitnessMaximGeneratie + '\n'
+
+    // fs.appendFile('helloworld.txt', JSON.stringify(individBest, null, 4), function (err) {
+      fs.appendFile('helloworld.txt', text, function (err) {
+      if (err) return console.log(err);
+      console.log('Hello World > helloworld.txt');
+    });
 
     return this.problema;
   }
