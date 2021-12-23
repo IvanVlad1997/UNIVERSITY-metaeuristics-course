@@ -1,6 +1,6 @@
-import {Injectable} from "@nestjs/common";
-import {Cromozon} from "./common/cromozon";
-import {Masa} from "./common/masa";
+import { Injectable } from "@nestjs/common";
+import { Cromozon } from "./common/cromozon";
+import { Masa } from "./common/masa";
 import * as fs from 'fs';
 import { BUNADISPOZITIE, INCPUTMESE, NUMARINVITATI, NUMARMESE } from "./common/buna-dispozitie";
 
@@ -44,9 +44,12 @@ export class Problema3Service {
   private problema: ListaInvitatilorAG;
 
   citireDateIntrare() {
-    this.problema.numarDeInvitati = NUMARINVITATI;
-    this.problema.numarDeMese = NUMARMESE;
-    this.problema.numarMaximDeLocuriMese =  INCPUTMESE
+    // this.problema.numarDeInvitati = NUMARINVITATI;
+    // this.problema.numarDeMese = NUMARMESE;
+    // this.problema.numarMaximDeLocuriMese =  INCPUTMESE
+    this.problema.numarDeInvitati = 10
+    this.problema.numarDeMese = 4;
+    this.problema.numarMaximDeLocuriMese = [2, 3, 3, 2]
   }
 
   citireParametri() {
@@ -67,9 +70,9 @@ export class Problema3Service {
   }
 
   adaugareIndivid() {
-    let individ: Cromozon = {asezariInvitatiLaMese: [], fitnsesIndivid: 0}
+    let individ: Cromozon = { asezariInvitatiLaMese: [], fitnsesIndivid: 0 }
     for (let i = 0; i < this.problema.numarDeMese; i++) {
-      let masa: Masa = {asezariInvitati: [], fitnessMasa: 0}
+      let masa: Masa = { asezariInvitati: [], fitnessMasa: 0 }
       individ.asezariInvitatiLaMese.push(masa)
     }
     this.problema.populatie.push(individ);
@@ -92,13 +95,13 @@ export class Problema3Service {
   initializarePopulatie() {
     // this.problema.populatie = [];
     for (let individ = 0; individ < this.problema.dimensiuneaInitialaPopulatie; individ++) {
-        this.adaugareIndivid();
+      this.adaugareIndivid();
       for (let invitat = 0; invitat < this.problema.numarDeInvitati; invitat++) {
         let numarMasa: number;
         do {
           numarMasa = this.getRandomInt(this.problema.numarDeMese);
         } while (this.problema.populatie[individ].asezariInvitatiLaMese[numarMasa].asezariInvitati.length >=
-        this.problema.numarMaximDeLocuriMese[numarMasa])
+          this.problema.numarMaximDeLocuriMese[numarMasa])
         this.problema.populatie[individ].asezariInvitatiLaMese[numarMasa].asezariInvitati.push(invitat);
       }
       let fitnessIndivid = 100;
@@ -108,7 +111,9 @@ export class Problema3Service {
         if (fitnessIndivid > fitnessMasa) {
           fitnessIndivid = fitnessMasa;
         }
+        console.log('fitnessMasa', fitnessMasa)
       }
+      console.log('fitnessIndivid', fitnessIndivid)
       this.problema.populatie[individ].fitnsesIndivid = fitnessIndivid;
     }
 
@@ -125,7 +130,6 @@ export class Problema3Service {
       return 100;
     }
     for (let invitat = 0; invitat < invitati.length; invitat++) {
-
       if (invitat === 0) {
         if (fitness > bunaDispozitie[invitati[invitat]][invitati[invitat + 1]]) {
           fitness = bunaDispozitie[invitati[invitat]][invitati[invitat + 1]];
@@ -172,11 +176,13 @@ export class Problema3Service {
   evaluareFitnessMaximGeneratie(problema: ListaInvitatilorAG) {
     let fitnessMaxim: number = problema.generatii[problema.generatieActuala].indivizi[0].fitnsesIndivid;
     for (let individ of problema.generatii[problema.generatieActuala].indivizi) {
+      console.log('individ pentru fitness maxim', individ.fitnsesIndivid)
       if (individ.fitnsesIndivid > fitnessMaxim) {
         fitnessMaxim = individ.fitnsesIndivid
       }
     }
     problema.generatii[problema.generatieActuala].fitnessMaximGeneratie = fitnessMaxim;
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', problema.generatii[problema.generatieActuala].fitnessMaximGeneratie)
   }
 
   trecereLaGeneratiaUrmatoare(problema: ListaInvitatilorAG) {
@@ -196,7 +202,7 @@ export class Problema3Service {
     let copieNumarParinti = numarParinti;
     let selectieRuleta: SelectiaRuleta[] = [];
     while (copieNumarParinti > 0) {
-      let individSelectieRuleta: SelectiaRuleta = {individ: undefined, interval: [], procent: 0};
+      let individSelectieRuleta: SelectiaRuleta = { individ: undefined, interval: [], procent: 0 };
       let sumaFitness = 0;
       for (let i = 0; i < copiePopulatie.length; i++) {
         sumaFitness += copiePopulatie[i].fitnsesIndivid;
@@ -227,9 +233,9 @@ export class Problema3Service {
     let parinti = [...this.problema.generatii[this.problema.generatieActuala].parinti];
     let parinte1: Cromozon = parinti[indiceParinte1];
     let parinte2: Cromozon = parinti[indiceParinte2];
-    let descendet: Cromozon = {asezariInvitatiLaMese: [], fitnsesIndivid: 0}
+    let descendet: Cromozon = { asezariInvitatiLaMese: [], fitnsesIndivid: 0 }
     for (let i = 0; i < this.problema.numarDeMese; i++) {
-      let masa: Masa = {asezariInvitati: [], fitnessMasa: 0}
+      let masa: Masa = { asezariInvitati: [], fitnessMasa: 0 }
       descendet.asezariInvitatiLaMese.push(masa)
     }
     let nrLocuriMeseParinte1: Map<number, number> = new Map<number, number>();
@@ -287,6 +293,7 @@ export class Problema3Service {
 
       //Transformarea în liste de liste
       let indexInvitati: number = 0;
+      let fitnessIndivid = 100;
       for (let i = 0; i < this.problema.numarDeMese; i++) {
         let masa: number[] = [];
         let locuriLaMasa: number = nrLocuriMeseParinte1.get(i);
@@ -294,7 +301,17 @@ export class Problema3Service {
           descendet.asezariInvitatiLaMese[i].asezariInvitati.push(listaInvitatiDescendent[indexInvitati])
           indexInvitati++;
         }
+        descendet.asezariInvitatiLaMese[i].fitnessMasa = this.fitnessMasa(descendet.asezariInvitatiLaMese[i].asezariInvitati, this.problema.bunaDispozitie)
+        if (fitnessIndivid > descendet.asezariInvitatiLaMese[i].fitnessMasa) {
+          //     console.log('fitnessIndivid 1', fitnessIndivid)
+          //     console.log('descendet.asezariInvitatiLaMese[i].fitnessMasa 1', descendet.asezariInvitatiLaMese[i].fitnessMasa)
+          // console.log('asezare pe masa 1', descendet.asezariInvitatiLaMese)
+
+          fitnessIndivid = descendet.asezariInvitatiLaMese[i].fitnessMasa;
+        }
       }
+      descendet.fitnsesIndivid = fitnessIndivid;
+      // console.log('fitnesind', descendet.fitnsesIndivid)
     }
 
     //Descendentul 2
@@ -332,10 +349,16 @@ export class Problema3Service {
         }
         descendet.asezariInvitatiLaMese[i].fitnessMasa = this.fitnessMasa(descendet.asezariInvitatiLaMese[i].asezariInvitati, this.problema.bunaDispozitie)
         if (fitnessIndivid > descendet.asezariInvitatiLaMese[i].fitnessMasa) {
+          //     console.log('fitnessIndivid 2', fitnessIndivid)
+          //     console.log('descendet.asezariInvitatiLaMese[i].fitnessMasa 2', descendet.asezariInvitatiLaMese[i].fitnessMasa)
+          // console.log('asezare pe masa 2', descendet.asezariInvitatiLaMese)
+
           fitnessIndivid = descendet.asezariInvitatiLaMese[i].fitnessMasa;
         }
       }
       descendet.fitnsesIndivid = fitnessIndivid;
+      // console.log('fitnesind', descendet.fitnsesIndivid)
+
     }
 
     this.problema.populatie.push(descendet);
@@ -393,18 +416,18 @@ export class Problema3Service {
   resetareProblema(): ListaInvitatilorAG {
     let date: ListaInvitatilorAG = {
       bunaDispozitie: [],
-      dimensiuneaInitialaPopulatie: 80,
-      dimensiuneaMaximaPopulatie: 15000,
+      dimensiuneaInitialaPopulatie: 10,
+      dimensiuneaMaximaPopulatie: 100,
       generatieActuala: 0,
       generatii: [],
-      numarDeInvitati: 9,
+      numarDeInvitati: 0,
       numarDeMese: 0,
       numarMaximDeLocuriMese: [],
-      numarulMaximDeGeneratii: 30,
+      numarulMaximDeGeneratii: 12,
       populatie: [],
       populatieActuala: 0,
-      probabilitateaDeIncrucisare: 0.8,
-      probabilitateaDeMutatie: 0.2
+      probabilitateaDeIncrucisare: 0.7,
+      probabilitateaDeMutatie: 0.1
     }
     return date;
   }
@@ -426,24 +449,24 @@ export class Problema3Service {
       console.log('trecere la urmatoarea generatie', this.problema.generatieActuala);
       this.adaugareGeneratie(this.problema);
       this.selectieRuleta(this.problema)
-      // console.log('a fost facuta selectia')
+      console.log('a fost facuta selectia')
       this.incrucisare()
-      // console.log('a fost facuta incrucisarea')
+      console.log('a fost facuta incrucisarea')
       this.mutatie();
-      // console.log('a fost facuta mutatia')
+      console.log('a fost facuta mutatia')
       this.adaugarePopulatieLaGeneratie(this.problema);
       this.evaluareFitnessMaximGeneratie(this.problema)
       console.log('evaluare fitnessMaxim Generație', this.problema.generatii[this.problema.generatieActuala].fitnessMaximGeneratie)
     } while (!this.final(this.problema.numarulMaximDeGeneratii, this.problema.dimensiuneaMaximaPopulatie))
 
 
-    let text = 'fitness algoritm genetic ' + this.problema.generatii[this.problema.generatieActuala].fitnessMaximGeneratie + '\n'
+    // let text = 'fitness algoritm genetic ' + this.problema.generatii[this.problema.generatieActuala].fitnessMaximGeneratie + '\n'
 
     // fs.appendFile('helloworld.txt', JSON.stringify(individBest, null, 4), function (err) {
-      fs.appendFile('helloworld.txt', text, function (err) {
-      if (err) return console.log(err);
-      console.log('Hello World > helloworld.txt');
-    });
+    //   fs.appendFile('helloworld.txt', text, function (err) {
+    //   if (err) return console.log(err);
+    //   console.log('Hello World > helloworld.txt');
+    // });
 
     return this.problema;
   }

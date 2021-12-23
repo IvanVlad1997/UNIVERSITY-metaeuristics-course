@@ -27,9 +27,9 @@ export class Problema3HillClimbingService {
   }
 
   citireParametri() {
-    this.numarAlterari = 15;
-    this.repetariTotale = 10;
-    this.repetariPerInitializare = 30;
+    this.repetariTotale = 10000;
+    this.repetariPerInitializare = 1000;
+    this.numarAlterari = 150;
     
     
     //Initializare matrice de buna dispozitie
@@ -210,13 +210,13 @@ export class Problema3HillClimbingService {
       repetariTotale--;
     } while (repetariTotale > 0)
 
-    let text = 'fitness hill climbing ' + individBest.fitnsesIndivid +'\n'
+    // let text = 'fitness hill climbing ' + individBest.fitnsesIndivid +'\n'
 
     // fs.appendFile('helloworld.txt', JSON.stringify(individBest, null, 4), function (err) {
-      fs.appendFile('helloworld.txt', text, function (err) {
-      if (err) return console.log(err);
-      console.log('Hello World > helloworld.txt');
-    });
+    //   fs.appendFile('helloworld.txt', text, function (err) {
+    //   if (err) return console.log(err);
+    //   console.log('Hello World > helloworld.txt');
+    // });
     return {
       // individ
       individBest,
