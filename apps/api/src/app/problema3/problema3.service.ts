@@ -416,14 +416,14 @@ export class Problema3Service {
   resetareProblema(): ListaInvitatilorAG {
     let date: ListaInvitatilorAG = {
       bunaDispozitie: [],
-      dimensiuneaInitialaPopulatie: 10,
-      dimensiuneaMaximaPopulatie: 1000,
+      dimensiuneaInitialaPopulatie: 100,
+      dimensiuneaMaximaPopulatie: 25000,
       generatieActuala: 0,
       generatii: [],
       numarDeInvitati: 0,
       numarDeMese: 0,
       numarMaximDeLocuriMese: [],
-      numarulMaximDeGeneratii: 12,
+      numarulMaximDeGeneratii: 50,
       populatie: [],
       populatieActuala: 0,
       probabilitateaDeIncrucisare: 0.7,

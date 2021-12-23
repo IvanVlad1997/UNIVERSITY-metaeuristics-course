@@ -31,19 +31,19 @@ export class Problema3IronAnnealingService {
     this.betaT = 10 ;
     this.repetarePasi = 3;
     // Initializare matrice de buna dispozitie
-    // if (this.bunaDispozitie.length < 1) {
-    //   for (let i = 0; i < this.numarDeInvitati; i++) {
-    //     this.bunaDispozitie.push([0]);
-    //     for (let j = 0; j < this.numarDeInvitati; j++) {
-    //       if (i == j) {
-    //         this.bunaDispozitie[i][j] = 100;
-    //         continue;
-    //       }
-    //       this.bunaDispozitie[i][j] = this.getRandomInt(101)
-    //     }
-    //   }
-    // }
-    this.bunaDispozitie = BUNADISPOZITIE;
+    if (this.bunaDispozitie.length < 1) {
+      for (let i = 0; i < this.numarDeInvitati; i++) {
+        this.bunaDispozitie.push([0]);
+        for (let j = 0; j < this.numarDeInvitati; j++) {
+          if (i == j) {
+            this.bunaDispozitie[i][j] = 100;
+            continue;
+          }
+          this.bunaDispozitie[i][j] = this.getRandomInt(101)
+        }
+      }
+    }
+    // this.bunaDispozitie = BUNADISPOZITIE;
 
   }
 
@@ -235,13 +235,13 @@ export class Problema3IronAnnealingService {
     } while (this.betaT > 0.3)  
     
 
-    // let text = 'fitness călirea metalelor ' + individBest.fitnsesIndivid + '\n'
+    let text = 'fitness călirea metalelor ' + individBest.fitnsesIndivid + '\n'
 
-    // fs.appendFile('helloworld.txt', JSON.stringify(bunaDispozitie, null, 4), function (err) {
-    //   fs.appendFile('helloworld.txt', text, function (err) {
-    //   if (err) return console.log(err);
-    //   console.log('Hello World > helloworld.txt');
-    // });
+    fs.appendFile('helloworld.txt', JSON.stringify(bunaDispozitie, null, 4), function (err) {
+      // fs.appendFile('helloworld.txt', text, function (err) {
+      if (err) return console.log(err);
+      console.log('Hello World > helloworld.txt');
+    });
     
     return {
       individBest,  
