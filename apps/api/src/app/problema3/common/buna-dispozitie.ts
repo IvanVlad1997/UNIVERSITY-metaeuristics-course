@@ -1,7 +1,7 @@
-export const NUMARINVITATI = 50
-// export const INCPUTMESE = [10, 8, 12, 8, 10, 15, 14, 10, 8, 8]
-export const INCPUTMESE = [8, 10, 10, 8, 15]
-export const NUMARMESE = 5;
+export const NUMARINVITATI = 100
+export const INCPUTMESE = [10, 8, 12, 8, 10, 15, 14, 10, 8, 8]
+// export const INCPUTMESE = [8, 10, 10, 8, 15]
+export const NUMARMESE = 10;
 
 export const BUNADISPOZITIE = [
     [
