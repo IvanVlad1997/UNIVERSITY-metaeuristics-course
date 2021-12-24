@@ -1,6 +1,5 @@
 import {Injectable} from "@nestjs/common";
 import * as fs from 'fs';
-import { stringify } from "querystring";
 import { BUNADISPOZITIE, INCPUTMESE, NUMARINVITATI } from "./common/buna-dispozitie";
  
 interface Cromozon {
@@ -28,8 +27,8 @@ export class Problema3IronAnnealingService {
 
 
   citireParametri() {
-    this.betaT = 10 ;
-    this.repetarePasi = 3;
+    this.betaT = 70 ;
+    this.repetarePasi = 50;
     // Initializare matrice de buna dispozitie
     // if (this.bunaDispozitie.length < 1) {
     //   for (let i = 0; i < this.numarDeInvitati; i++) {
@@ -230,18 +229,18 @@ export class Problema3IronAnnealingService {
         repetarePasi --;
         console.log('repetarePasi', repetarePasi)
       } while (repetarePasi > 0)
-      this.betaT = this.betaT - 0.001 ;
+      this.betaT = this.betaT - 0.00005 ;
       console.log('this.betaT', this.betaT)
     } while (this.betaT > 0.3)  
     
 
-    let text = 'fitness călirea metalelor ' + individBest.fitnsesIndivid + '\n'
+    // let text = 'fitness călirea metalelor ' + individBest.fitnsesIndivid + '\n'
 
-    fs.appendFile('helloworld.txt', JSON.stringify(bunaDispozitie, null, 4), function (err) {
-      // fs.appendFile('helloworld.txt', text, function (err) {
-      if (err) return console.log(err);
-      console.log('Hello World > helloworld.txt');
-    });
+    // fs.appendFile('helloworld.txt', JSON.stringify(bunaDispozitie, null, 4), function (err) {
+    //   // fs.appendFile('helloworld.txt', text, function (err) {
+    //   if (err) return console.log(err);
+    //   console.log('Hello World > helloworld.txt');
+    // });
     
     return {
       individBest,  
